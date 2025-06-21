@@ -1,0 +1,19 @@
+*{
+    margin: 0;
+    padding: 0;
+    /* background-color: rgba(120, 113, 113, 0.5); */
+    border: none;
+    color: black;
+}
+
+.terms{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+.terms h2{
+    margin-top: 2em;
+    margin-bottom: 3em;
+}
