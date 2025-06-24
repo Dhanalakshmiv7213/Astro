@@ -11,9 +11,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-bottom: 3rem;
     
 }
 .terms h2{
     margin-top: 2em;
     margin-bottom: 3em;
+    
 }
