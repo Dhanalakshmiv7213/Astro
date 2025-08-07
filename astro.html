@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Astro Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .left-section {
+      flex: 1;
+      position: relative;
+      background: url('https://images.unsplash.com/photo-1608048362610-72a6f2b49a2f?auto=format&fit=crop&w=1050&q=80') no-repeat center center/cover;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1;
+    }
+
+    .content {
+      position: absolute;
+      top: 30%;
+      left: 10%;
+      color: white;
+      z-index: 2;
+    }
+
+    .content h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .content p {
+      font-size: 1.2rem;
+      color: #ccc;
+    }
+
+    .space-terms {
+      position: absolute;
+      bottom: 10px;
+      left: 10%;
+      color: #999;
+      font-size: 0.9rem;
+      z-index: 2;
+    }
+
+    .right-section {
+      flex: 1;
+      background-color: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+
+    .form-box {
+      width: 80%;
+      max-width: 400px;
+    }
+
+    .form-box h2 {
+      margin-bottom: 20px;
+    }
+
+    .form-box input[type="text"],
+    .form-box input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      background: #222;
+      color: white;
+    }
+
+    .form-box .checkbox {
+      display: flex;
+      align-items: center;
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+    }
+
+    .form-box .checkbox input {
+      margin-right: 8px;
+    }
+
+    .form-box button {
+      width: 100%;
+      padding: 12px;
+      background: #1e90ff;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .social-buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .social-buttons button {
+      flex: 1;
+      background: #333;
+      border: none;
+      color: white;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .signup-link {
+      text-align: right;
+      margin-top: 10px;
+      font-size: 0.85rem;
+    }
+
+    .signup-link a, .form-box a {
+      color: #1e90ff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left-section">
+      <div class="overlay"></div>
+      <div class="content">
+        <h1>Exploring new frontiers,</h1>
+        <h1>one step at a time.</h1>
+        <p>Beyond Earth's Group</p>
+      </div>
+      <div class="space-terms">
+        Terms: Black Hole, Event Horizon, Wormhole, Cosmic Rays, Quantum Field, Dark Matter
+      </div>
+    </div>
+    <div class="right-section">
+      <div class="form-box">
+        <h2>Login Account</h2>
+        <div class="social-buttons">
+          <button>Sign in with Google</button>
+          <button>Sign in with Facebook</button>
+        </div>
+        <input type="text" placeholder="Full Name">
+        <input type="password" placeholder="Password">
+        <div class="checkbox">
+          <input type="checkbox" id="agree">
+          <label for="agree">I agree to the <a href="#">Terms & Conditions</a></label>
+        </div>
+        <button>Sign In</button>
+        <div class="signup-link">
+          Don't have an account? <a href="#">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
