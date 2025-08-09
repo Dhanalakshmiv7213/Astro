@@ -1,183 +1,334 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Astro Login</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Orbitron', sans-serif;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CanLeon - Online Store</title>
+<style>
+  /* Reset and base styles */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f8f9fa;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
 
-    body, html {
-      height: 100%;
-      overflow: hidden;
-    }
+  /* Navbar styling */
+  nav {
+    position: sticky;
+    top: 0;
+    background: linear-gradient(90deg, #1a2a6c, #b21f1f, #fdbb2d);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+    height: 70px;
+  }
 
-    .container {
-      display: flex;
-      height: 100vh;
-      width: 100vw;
-    }
+  /* Logo */
+  .logo {
+    font-weight: 900;
+    font-size: 1.8rem;
+    color: #fff;
+    letter-spacing: 1.2px;
+    margin-right: 50px;
+    user-select: none;
+  }
+  .logo span {
+    color: #ffe600;
+    font-style: italic;
+    text-shadow: 0 0 8px #ffe600aa;
+  }
 
-    .left-section {
-      flex: 1;
-      position: relative;
-      background: url('https://images.unsplash.com/photo-1608048362610-72a6f2b49a2f?auto=format&fit=crop&w=1050&q=80') no-repeat center center/cover;
-    }
+  /* Nav menu */
+  ul.nav-menu {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+  }
+  ul.nav-menu > li {
+    position: relative;
+    margin-right: 30px;
+  }
+  ul.nav-menu > li > a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 12px 15px;
+    display: block;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+  }
+  ul.nav-menu > li > a:hover {
+    background: rgba(255,255,255,0.25);
+    box-shadow: 0 0 12px #fff8;
+  }
 
-    .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.6);
-      z-index: 1;
-    }
+  /* Dropdown container */
+  ul.nav-menu > li:hover > .dropdown {
+    display: block;
+  }
+  .dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #222;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    min-width: 180px;
+    z-index: 2100;
+  }
+  .dropdown a {
+    display: block;
+    padding: 12px 20px;
+    color: #eee;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.25s ease;
+  }
+  .dropdown a:hover {
+    background: #444;
+  }
 
-    .content {
-      position: absolute;
-      top: 30%;
-      left: 10%;
-      color: white;
-      z-index: 2;
-    }
+  /* Search container */
+  .search-container {
+    margin-left: auto;
+    position: relative;
+  }
+  .search-container input[type="search"] {
+    padding: 10px 15px;
+    border-radius: 30px;
+    border: none;
+    width: 220px;
+    font-size: 1rem;
+    transition: box-shadow 0.3s ease;
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.1);
+  }
+  .search-container input[type="search"]:focus {
+    outline: none;
+    box-shadow: 0 0 12px #ffe600;
+  }
 
-    .content h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-    }
+  /* Main hero section */
+  main.hero {
+    text-align: center;
+    padding: 120px 20px 80px;
+    background: url('https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+    color: white;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+  }
+  main.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    font-weight: 900;
+    letter-spacing: 2px;
+  }
+  main.hero h1 span {
+    color: #ffe600;
+    font-style: italic;
+  }
+  main.hero p {
+    font-size: 1.3rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
 
-    .content p {
-      font-size: 1.2rem;
-      color: #ccc;
-    }
+  /* Products section */
+  main.products {
+    padding: 60px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-grow: 1;
+  }
+  main.products h2 {
+    font-size: 2.8rem;
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #1a2a6c;
+    text-shadow: 0 0 8px #b21f1f33;
+  }
 
-    .space-terms {
-      position: absolute;
-      bottom: 10px;
-      left: 10%;
-      color: #999;
-      font-size: 0.9rem;
-      z-index: 2;
-    }
+  /* Products grid */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+    gap: 30px;
+  }
 
-    .right-section {
-      flex: 1;
-      background-color: #111;
-      display: flex;
+  /* Single product card */
+  .product-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+  }
+  .product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+  }
+  .product-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+  }
+  .product-info {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .product-name {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: #1a2a6c;
+    margin-bottom: 12px;
+    min-height: 48px; /* For consistent height */
+  }
+  .product-price {
+    font-weight: 900;
+    font-size: 1.4rem;
+    color: #b21f1f;
+  }
+
+  /* Footer */
+  footer {
+    background: #1a2a6c;
+    color: #fff;
+    text-align: center;
+    padding: 25px 20px;
+    font-size: 1rem;
+    box-shadow: 0 -4px 10px rgba(0,0,0,0.25);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    nav {
+      flex-wrap: wrap;
+      height: auto;
+      padding: 15px 20px;
+    }
+    ul.nav-menu {
+      width: 100%;
       justify-content: center;
-      align-items: center;
-      color: white;
-    }
-
-    .form-box {
-      width: 80%;
-      max-width: 400px;
-    }
-
-    .form-box h2 {
-      margin-bottom: 20px;
-    }
-
-    .form-box input[type="text"],
-    .form-box input[type="password"] {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border: none;
-      border-radius: 5px;
-      background: #222;
-      color: white;
-    }
-
-    .form-box .checkbox {
-      display: flex;
-      align-items: center;
-      font-size: 0.9rem;
-      margin-bottom: 15px;
-    }
-
-    .form-box .checkbox input {
-      margin-right: 8px;
-    }
-
-    .form-box button {
-      width: 100%;
-      padding: 12px;
-      background: #1e90ff;
-      border: none;
-      color: white;
-      font-weight: bold;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .social-buttons {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    .social-buttons button {
-      flex: 1;
-      background: #333;
-      border: none;
-      color: white;
-      padding: 10px;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-
-    .signup-link {
-      text-align: right;
       margin-top: 10px;
-      font-size: 0.85rem;
     }
-
-    .signup-link a, .form-box a {
-      color: #1e90ff;
-      text-decoration: none;
+    ul.nav-menu > li {
+      margin-right: 15px;
     }
-  </style>
+    .search-container {
+      width: 100%;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .search-container input[type="search"] {
+      width: 100%;
+      max-width: 300px;
+    }
+    main.products {
+      padding: 40px 20px;
+    }
+    main.products h2 {
+      font-size: 2rem;
+    }
+    .product-card {
+      flex-direction: column;
+    }
+    .product-image {
+      height: 180px;
+      padding: 120px 20px 80px;
+      
+    }
+  }
+</style>
 </head>
 <body>
-  <div class="container">
-    <div class="left-section">
-      <div class="overlay"></div>
-      <div class="content">
-        <h1>Exploring new frontiers,</h1>
-        <h1>one step at a time.</h1>
-        <p>Beyond Earth's Group</p>
+
+<nav>
+  <div class="logo"><span>Astro</span></div>
+  <ul class="nav-menu">
+    <li><a href="#">Home</a></li>
+    <li>
+      <a href="#">Categories ▼</a>
+      <div class="dropdown">
+        <a href="#">Terminology</a>
+        <a href="#">News</a>
+        <a href="#">Upcoming Events</a>
+        <a href="#">Products</a>
       </div>
-      <div class="space-terms">
-        Terms: Black Hole, Event Horizon, Wormhole, Cosmic Rays, Quantum Field, Dark Matter
-      </div>
-    </div>
-    <div class="right-section">
-      <div class="form-box">
-        <h2>Login Account</h2>
-        <div class="social-buttons">
-          <button>Sign in with Google</button>
-          <button>Sign in with Facebook</button>
-        </div>
-        <input type="text" placeholder="Full Name">
-        <input type="password" placeholder="Password">
-        <div class="checkbox">
-          <input type="checkbox" id="agree">
-          <label for="agree">I agree to the <a href="#">Terms & Conditions</a></label>
-        </div>
-        <button>Sign In</button>
-        <div class="signup-link">
-          Don't have an account? <a href="#">Sign Up</a>
-        </div>
-      </div>
-    </div>
+    </li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+
+  <div class="search-container">
+    <input list="astro" type="search" placeholder="Search astro..." aria-label="Search astro" />
+    <datalist id="astro">
+      <option value="Galaxy"></option>
+      <option value="Planets"></option>
+      <option value="Satellites"></option>
+    </datalist>
   </div>
+</nav>
+
+<main class="hero">
+  <h1>Discover the space with <span>Astro</span></h1>
+  <p>Experience high end experience in </p>
+</main>
+
+<main class="products" aria-label="Product listings">
+  <h2>Featured Products</h2>
+  <div class="product-grid">
+    <article class="product-card" tabindex="0">
+      <img class="product-image" src="img/watch.jpeg" alt="Elegant Watch" />
+      <div class="product-info">
+        <h3 class="product-name">Luxury Elegant Watch</h3>
+        <div class="product-price">$1,299</div>
+      </div>
+    </article>
+
+    <article class="product-card" tabindex="0">
+      <img class="product-image" src="img/shoppin.jpeg" alt="Designer Handbag" />
+      <div class="product-info">
+        <h3 class="product-name">Glaxy</h3>
+        <div class="product-price"></div>
+      </div>
+    </article>
+
+    <article class="product-card" tabindex="0">
+      <img class="product-image" src="img/sunglass.jpeg" alt="Classic Sunglasses" />
+      <div class="product-info">
+        <h3 class="product-name">Classic Sunglasses</h3>
+        <div class="product-price">$350</div>
+      </div>
+    </article>
+
+    <article class="product-card" tabindex="0">
+      <img class="product-image" src="img/shoes.jpeg" alt="Luxury Sneakers" />
+      <div class="product-info">
+        <h3 class="product-name">Luxury Sneakers</h3>
+        <div class="product-price">$899</div>
+      </div>
+    </article>
+  </div>
+</main>
+
+<footer>
+  &copy; 2025 CanLeon. All rights reserved. | Designed with ❤️
+</footer>
+
 </body>
 </html>
